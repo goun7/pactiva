@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pactiva — Kurumsal İstihdam, Bilişsel Yetkinlik & Emanet Hak Ediş Altyapısı</title>
+  <meta name="description" content="Mavi yaka ve profesyonel işgücü için yasal korumalı, akıllı emanet kasalı, 15 saniyelik dinamik QR ve yetkinlik doğrulama altyapısı.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 1. Master Control Header -->
+  <header class="master-header">
+    <div class="header-container">
+      
+      <!-- Brand Identity -->
+      <a href="#" class="brand-section" onclick="switchMainTab('dashboard')">
+        <img src="assets/logo.jpg" alt="Pactiva" class="brand-logo-img">
+        <div class="brand-info">
+          <span class="brand-name">Pactiva</span>
+          <span class="brand-tagline">Kurumsal İstihdam ve Hak Ediş Altyapısı</span>
+        </div>
+      </a>
+
+      <!-- Main Navigation Tabs -->
+      <nav class="main-nav-tabs" aria-label="Ana Navigasyon">
+        <button class="nav-tab-btn active" id="tabBtnDashboard" onclick="switchMainTab('dashboard')">
+          Operasyon Kokpiti
+        </button>
+        <button class="nav-tab-btn" id="tabBtnEscrow" onclick="switchMainTab('escrow')">
+          Emanet Kasası
+        </button>
+        <button class="nav-tab-btn" id="tabBtnTerminal" onclick="switchMainTab('terminal')">
+          Saha Terminali
+        </button>
+        <button class="nav-tab-btn" id="tabBtnErp" onclick="switchMainTab('erp')">
+          ERP & Muhasebe
+        </button>
+        <button class="nav-tab-btn" id="tabBtnTalent" onclick="switchMainTab('talent')">
+          Yetkinlik Eşleştirme
+        </button>
+        <button class="nav-tab-btn" id="tabBtnArbitration" onclick="switchMainTab('arbitration')">
+          Tahkim Kurulu
+        </button>
+        <button class="nav-tab-btn" id="tabBtnAudit" onclick="switchMainTab('audit')">
+          Denetim Defteri
+        </button>
+      </nav>
+
+      <!-- Utility Actions -->
+      <div class="header-actions">
+        <div class="api-badge" id="apiStatusBadge">
+          <span class="pulse-dot"></span>
+          <span>127.0.0.1:8000 OPERASYONEL</span>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- 2. Master Viewport -->
+  <main class="main-viewport">
+
+    <!-- TOP KPI METRIC STRIP (Visible across operational views) -->
+    <section class="kpi-strip" aria-label="Canlı Ağ Metrikleri">
+      <div class="kpi-card emerald">
+        <div class="kpi-label">Emanet Kasasında Kilitli Bütçe</div>
+        <div class="kpi-value" id="kpiLockedBudget">4.850.200 ₺</div>
+        <div class="kpi-sub">4857 SK Md. 41 %20 Fazla Mesai Tamponu Korumalı</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Aktif Şantiye ve Set Sayısı</div>
+        <div class="kpi-value" id="kpiActiveShifts">38 Saha</div>
+        <div class="kpi-sub">Metre-altı Wi-Fi RTT 802.11mc Doğrulandı</div>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-label">İkame Ekip Sevk SLA Süresi</div>
+        <div class="kpi-value" id="kpiSlaTime">9.4 Dk</div>
+        <div class="kpi-sub">15km Geohash Yakınlık Optimizasyonu Devrede</div>
+      </div>
+      <div class="kpi-card rose">
+        <div class="kpi-label">Hesaplanan Stopaj ve Tevkifat</div>
+        <div class="kpi-value" id="kpiTaxWithheld">485.020 ₺</div>
+        <div class="kpi-sub">193 Sayılı GVK Madde 94 %10 Tevkifat Hazır</div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 1: OPERASYON KOKPİTİ (CANLI SAHA & VARDİYA)           -->
+    <!-- ======================================================== -->
+    <section class="view-panel active" id="viewDashboard">
+      <div class="ops-card">
+        <div class="ops-card-header">
+          <div>
+            <h2 class="ops-card-title">Canlı Saha, Set & Mesai Kokpiti</h2>
+            <p class="ops-card-desc">IEEE 802.11mc Wi-Fi RTT ve PTP donanımsal zaman senkronizasyonu ile anlık takip</p>
+          </div>
+          <button class="btn btn-danger" id="btnEmergencyDispatch" onclick="triggerEmergencyDispatch()">
+            Acil Yedek Çağrısı (10 Dk SLA)
+          </button>
+        </div>
+
+        <div class="table-container">
+          <table class="ops-table">
+            <thead>
+              <tr>
+                <th>Çalışan / Görev</th>
+                <th>Saha / Set Lokasyonu</th>
+                <th>Konum Doğrulama (RTT)</th>
+                <th>Mesai Süresi</th>
+                <th>4857 SK Fazla Mesai</th>
+                <th>Anlık Tahakkuk</th>
+                <th>İşlem</th>
+              </tr>
+            </thead>
+            <tbody id="shiftsTableBody">
+              <tr>
+                <td><strong>Ahmet Yılmaz</strong><br><small class="text-muted">Işık Şefi (Grip)</small></td>
+                <td>Kilyos Platosu · Karanlık Sular</td>
+                <td><span class="badge badge-active">Wi-Fi RTT 0.9m</span></td>
+                <td class="font-mono">8s 45dk</td>
+                <td><span class="badge badge-overtime">45 dk (%50 Zam)</span></td>
+                <td class="font-mono"><strong>4.275,00 ₺</strong></td>
+                <td><button class="btn btn-emerald" style="padding: 0.35rem 0.75rem; font-size: 0.74rem;" onclick="disburseEscrow('escrow_demo_01')">Hak Ediş Öde</button></td>
+              </tr>
+              <tr>
+                <td><strong>Burak Demir</strong><br><small class="text-muted">Boom / Ses Operatörü</small></td>
+                <td>Kilyos Platosu · Karanlık Sular</td>
+                <td><span class="badge badge-active">Wi-Fi RTT 1.2m</span></td>
+                <td class="font-mono">7s 10dk</td>
+                <td>Standart</td>
+                <td class="font-mono"><strong>3.225,00 ₺</strong></td>
+                <td><button class="btn btn-emerald" style="padding: 0.35rem 0.75rem; font-size: 0.74rem;" onclick="disburseEscrow('escrow_demo_02')">Hak Ediş Öde</button></td>
+              </tr>
+              <tr>
+                <td><strong>Caner Sönmez</strong><br><small class="text-muted">Kule Vinç Operatörü</small></td>
+                <td>Maslak Finans Kule Şantiyesi</td>
+                <td><span class="badge badge-active">BLE Beacon Mesh</span></td>
+                <td class="font-mono">9s 15dk</td>
+                <td><span class="badge badge-overtime">1s 15dk (%50 Zam)</span></td>
+                <td class="font-mono"><strong>5.150,00 ₺</strong></td>
+                <td><button class="btn btn-emerald" style="padding: 0.35rem 0.75rem; font-size: 0.74rem;" onclick="disburseEscrow('escrow_demo_03')">Hak Ediş Öde</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="output-banner" id="dispatchResultBanner"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 2: AKILLI EMANET KASASI (SMART ESCROW)               -->
+    <!-- ======================================================== -->
+    <section class="view-panel" id="viewEscrow">
+      <div class="ops-grid-2col">
+        
+        <div class="ops-card">
+          <div class="ops-card-header">
+            <div>
+              <h2 class="ops-card-title">Emanet Kasası Bütçe Kilidi</h2>
+              <p class="ops-card-desc">İşveren bütçesini BDDK lisanslı emanet hesabında bloke edin</p>
+            </div>
+          </div>
+
+          <form id="escrowLockForm" onsubmit="handleEscrowSubmit(event)">
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label class="form-label">İş / Görev Tanımı</label>
+                <input type="text" class="form-input" id="jobTitle" value="Sinema Seti 1. Asistan Işık Teknisyeni" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Sektör / Kategori</label>
+                <select class="form-select" id="jobCategory">
+                  <option value="film_crew">Film ve Dizi Seti</option>
+                  <option value="construction">İnşaat ve Şantiye</option>
+                  <option value="tech_talent">Yazılım ve Mühendislik</option>
+                  <option value="event">Etkinlik ve Prodüksiyon</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Baz Saatlik Ücret (₺)</label>
+                <input type="number" class="form-input" id="baseHourlyRate" value="450" step="10" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Planlanan Mesai Süresi (Saat)</label>
+                <input type="number" class="form-input" id="expectedHours" value="10" step="1" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Bloke Edilecek Tutar (+%20 Tampon)</label>
+                <div class="form-input font-mono" style="background: var(--bg-elevated); color: var(--accent-emerald); font-weight: 700;">
+                  <span id="calculatedBudgetPreview">5.400,00</span> ₺
+                </div>
+              </div>
+              <div class="form-group full-width">
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                  Emanet Kasasında Bütçeyi Bloke Et
+                </button>
+              </div>
+            </div>
+          </form>
+
+          <div class="output-banner" id="escrowResultBanner"></div>
+        </div>
+
+        <div class="ops-card">
+          <div class="ops-card-header">
+            <div>
+              <h2 class="ops-card-title">Mevzuat Güvencesi ve Şartlar</h2>
+              <p class="ops-card-desc">4857 Sayılı İş Kanunu ve 4904 Sayılı İŞKUR Kanunu uyumu</p>
+            </div>
+          </div>
+          
+          <div style="font-size: 0.84rem; color: var(--text-sub); display: flex; flex-direction: column; gap: 0.85rem; line-height: 1.5;">
+            <div>
+              <strong style="color: var(--text-white);">4857 SK Madde 41 (%50 Fazla Mesai):</strong><br>
+              Haftalık 45 saati aşan çalışmalar ve günlük 8 saat üzeri süreler için sistem otomatik %50 zamlı saat ücreti hesaplar. Bütçe kilidine %20 tampon eklenerek işçi mağduriyeti önlenir.
+            </div>
+            <div>
+              <strong style="color: var(--text-white);">4904 SK Madde 19 ($0 Çalışan Ücreti):</strong><br>
+              İş arayandan ve emekçiden hiçbir komisyon veya işlem ücreti kesilmez. Platform maliyetleri tamamen kurumsal işveren emanet işlem payından karşılanır.
+            </div>
+            <div>
+              <strong style="color: var(--text-white);">GVK Madde 94 (%10 Stopaj Tevkifatı):</strong><br>
+              Fatura kesemeyen serbest çalışanlar için net hak ediş hesaplanırken %10 stopaj brütten otonom düşülerek vergi dairesi adına emanete aktarılır.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 3: SAHA TERMİNALİ (DÖNEN QR & YOKLAMA)                -->
+    <!-- ======================================================== -->
+    <section class="view-panel" id="viewTerminal">
+      <div class="ops-grid-2col">
+        
+        <div class="ops-card">
+          <div class="ops-card-header">
+            <div>
+              <h2 class="ops-card-title">Saha Yoklama Terminali (15s Dönen QR)</h2>
+              <p class="ops-card-desc">Şantiye veya sette personelin telefon kamerasıyla okutacağı güvenli döner kod</p>
+            </div>
+          </div>
+
+          <div class="qr-terminal-box">
+            <div class="qr-box-inner">
+              <div id="terminalQrCanvas" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;"></div>
+            </div>
+            <div class="qr-info-column">
+              <div style="font-size: 0.84rem; font-weight: 700; color: var(--text-white);">HMAC-SHA256 Mühürlü Token</div>
+              <div class="font-mono" id="terminalQrHashDisplay" style="font-size: 0.74rem; color: var(--text-muted); word-break: break-all;">
+                Yükleniyor...
+              </div>
+              <div style="font-size: 0.8rem; color: var(--accent-blue);">
+                Kalan Süre: <strong class="font-mono" id="terminalQrSecondsLeft">15s</strong>
+              </div>
+              <div style="font-size: 0.74rem; color: var(--text-sub); margin-top: 0.5rem;">
+                Her 15 saniyede bir yeni kriptografik nonce üretilir. Tekrar oynatma saldırılarına (replay attack) kapalıdır.
+              </div>
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.75rem; margin-top: 1.25rem;">
+            <button class="btn btn-emerald" onclick="triggerSimulatedCheckIn()">
+              Personel Girişini Doğrula (Check-In)
+            </button>
+          </div>
+          <div class="output-banner" id="terminalCheckInBanner"></div>
+        </div>
+
+        <div class="ops-card">
+          <div class="ops-card-header">
+            <div>
+              <h2 class="ops-card-title">Donanım Doğrulama ve Canlılık Sensörleri</h2>
+              <p class="ops-card-desc">IEEE 802.11mc Wi-Fi RTT ve Dokunmatik Jitter Entropisi</p>
+            </div>
+          </div>
+
+          <div class="touchpad-box" id="terminalTouchpad"
+               onmousedown="startTerminalJitter()" onmouseup="finishTerminalJitter()"
+               ontouchstart="startTerminalJitter()" ontouchend="finishTerminalJitter()">
+            <div style="font-size: 0.95rem; font-weight: 700; color: var(--text-white);">Dokunmatik Ekran Doğrulama Alanı</div>
+            <div style="font-size: 0.78rem; color: var(--text-sub); margin-top: 0.35rem;">
+              Parmağınızı basılı tutarak mikroskobik dokunuş frekansını (Jitter) ve Shannon entropisini test edin.
+            </div>
+            <div id="terminalJitterResult" style="margin-top: 0.75rem; font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--accent-emerald); display: none;">
+              Doğrulandı: Shannon Entropisi: 0.942 > 0.85 (Fizyolojik İnsan Dokunuşu)
+            </div>
+          </div>
+
+          <div style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.65rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.4rem;">
+              <span class="text-sub">Wi-Fi RTT 802.11mc FTM:</span>
+              <span class="font-mono text-white">0.9 metre (Kilyos AP-1, AP-2, AP-3)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 0.4rem;">
+              <span class="text-sub">PTP Donanımsal Saat Kayması:</span>
+              <span class="font-mono" style="color: var(--accent-emerald);">±4 nanosaniye (Senkron)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.8rem;">
+              <span class="text-sub">Geofence Güvenlik Çemberi:</span>
+              <span class="badge badge-active">Saha Sınırları İçinde (500m)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 4: KURUMSAL ERP & MUHASEBE                           -->
+    <!-- ======================================================== -->
+    <section class="view-panel" id="viewErp">
+      <div class="ops-card">
+        <div class="ops-card-header">
+          <div>
+            <h2 class="ops-card-title">Kurumsal ERP ve Muhasebe Entegrasyonu</h2>
+            <p class="ops-card-desc">Tekdüzen Hesap Planı (THP 740/360/329), Logo XML ve SAP HCM CSV ihracı</p>
+          </div>
+        </div>
+
+        <p style="font-size: 0.84rem; color: var(--text-sub); margin-bottom: 1.25rem;">
+          Sistem; tamamlanan vardiyalar için 193 Sayılı GVK Md. 94 uyarınca %10 stopajı düşerek brüt ve net çift taraflı muhasebe fişlerini otomatik oluşturur.
+        </p>
+
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <button class="btn btn-outline" onclick="downloadErpExport('json')">
+            THP 740/360 Yevmiye Fişi (JSON)
+          </button>
+          <button class="btn btn-outline" onclick="downloadErpExport('logo_xml')">
+            Logo Go/Tiger Bordro (XML)
+          </button>
+          <button class="btn btn-outline" onclick="downloadErpExport('sap_csv')">
+            SAP HCM Bordro (CSV)
+          </button>
+        </div>
+
+        <div class="output-banner" id="erpResultBanner"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 5: VEKTÖR TABANLI YETKİNLİK EŞLEŞTİRME                -->
+    <!-- ======================================================== -->
+    <section class="view-panel" id="viewTalent">
+      <div class="ops-card">
+        <div class="ops-card-header">
+          <div>
+            <h2 class="ops-card-title">Vektör Tabanlı Yetkinlik Eşleştirme (pgvector)</h2>
+            <p class="ops-card-desc">HNSW Kosinüs benzerliği ile aday yetkinlik eşleşmesi</p>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 1rem;">
+          <label class="form-label">Pozisyon İhtiyacı / Yetkinlik Tanımı:</label>
+          <input type="text" class="form-input" id="skillSearchQuery" value="ARRI Alexa 35 kamera, DMX ışık kontrolü ve yüksek güvenilirlik skoruna sahip şef">
+        </div>
+
+        <button class="btn btn-primary" onclick="handleSkillMatching()">
+          Uygun Adayları Sırala (Vektör Analizi)
+        </button>
+
+        <div class="output-banner" id="skillMatchResults"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 6: TAHKİM KURULU (SCHELLING KONSENSÜSÜ)              -->
+    <!-- ======================================================== -->
+    <section class="view-panel" id="viewArbitration">
+      <div class="ops-card">
+        <div class="ops-card-header">
+          <div>
+            <h2 class="ops-card-title">7 Üyeli Bağımsız Tahkim Kurulu</h2>
+            <p class="ops-card-desc">Kör delil paketleri, karesel oylama ve kötü niyetli oya karşı %30 Slashing yaptırımı</p>
+          </div>
+          <span class="badge badge-active">Dosya No: DISPUTE-2026-09</span>
+        </div>
+
+        <div style="background: var(--bg-card); padding: 1.25rem; border-radius: var(--radius-sm); margin-bottom: 1.25rem;">
+          <h4 style="font-size: 0.88rem; color: var(--text-white); margin-bottom: 0.35rem;">Uyuşmazlık Konusu:</h4>
+          <p style="font-size: 0.82rem; color: var(--text-sub);">
+            Kilyos Platosunda 45 dakikalık fazla mesainin tamamlanmadığı iddiası. 
+            Delil Paketi: Wi-Fi RTT 802.11mc FTM mesafe logu (0.9m) ve PTP donanımsal zaman mührü mevcuttur.
+          </p>
+        </div>
+
+        <h4 style="font-size: 0.84rem; color: var(--text-sub); text-transform: uppercase; margin-bottom: 0.5rem;">
+          Bağımsız Hakem Heyeti (Kör Oy Aşamasında)
+        </h4>
+
+        <div class="jurors-grid" id="jurorsBenchGrid">
+          <!-- Dynamically populated 7 jurors -->
+        </div>
+
+        <div style="display: flex; gap: 0.75rem; margin-top: 1.5rem;">
+          <button class="btn btn-emerald" onclick="castConsensusVote('worker')">
+            Çalışan Haklı (Mesai İspatlandı)
+          </button>
+          <button class="btn btn-danger" onclick="castConsensusVote('employer')">
+            İşveren Haklı (Fazla Mesai Yok)
+          </button>
+          <button class="btn btn-outline" onclick="slashJurors()">
+            Aykırı Hakeme Yaptırım Uygula (%30 Slashing)
+          </button>
+        </div>
+
+        <div class="output-banner" id="arbitrationBanner"></div>
+      </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- TAB 7: KRİPTOGRAFİK DENETİM DEFTERİ                      -->
+    <!-- ======================================================== -->
+    <section class="view-panel" id="viewAudit">
+      <div class="ops-card">
+        <div class="ops-card-header">
+          <div>
+            <h2 class="ops-card-title">Değiştirilemez Merkle-Hash Denetim Defteri</h2>
+            <p class="ops-card-desc">Geriye dönük mesai, stopaj veya emanet tahrifatını sıfır toleransla tespit eden kriptografik defter</p>
+          </div>
+          <button class="btn btn-primary" onclick="handleAuditVerify()">
+            Tüm Blokları Doğrula
+          </button>
+        </div>
+
+        <div class="table-container" style="margin-bottom: 1.25rem;">
+          <table class="ops-table">
+            <thead>
+              <tr>
+                <th>Blok</th>
+                <th>Olay Tipi</th>
+                <th>Önceki Hash (Parent)</th>
+                <th>Merkle Kökü (Data Hash)</th>
+                <th>Blok Hash (SHA-256)</th>
+                <th>Durum</th>
+              </tr>
+            </thead>
+            <tbody id="auditBlocksTableBody">
+              <tr>
+                <td class="font-mono">#0 (Genesis)</td>
+                <td><span class="badge badge-active">Sistem Başlatma</span></td>
+                <td class="font-mono text-muted">0000000000000000...</td>
+                <td class="font-mono">8f4c21...</td>
+                <td class="font-mono">4a92c1...</td>
+                <td><span class="badge badge-active">Doğrulandı</span></td>
+              </tr>
+              <tr>
+                <td class="font-mono">#1</td>
+                <td><span class="badge badge-pending">escrow.locked</span></td>
+                <td class="font-mono text-muted">4a92c1...</td>
+                <td class="font-mono">2b1a94...</td>
+                <td class="font-mono">99c9c9...</td>
+                <td><span class="badge badge-active">Doğrulandı</span></td>
+              </tr>
+              <tr>
+                <td class="font-mono">#2</td>
+                <td><span class="badge badge-active">attendance.verified</span></td>
+                <td class="font-mono text-muted">99c9c9...</td>
+                <td class="font-mono">e7d3a1...</td>
+                <td class="font-mono">71f2b9...</td>
+                <td><span class="badge badge-active">Doğrulandı</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button class="btn btn-outline" onclick="simulateAuditTampering()">
+            Tahrifat Testi Simülasyonu
+          </button>
+        </div>
+
+        <div class="output-banner" id="auditVerifyBanner"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pactiva_api
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PACTIVA_ENV=production
+      - PACTIVA_DB_PATH=/app/data/pactiva.db
+      - PACTIVA_QR_SECRET=pactiva_prod_qr_key_change_in_prod
+      - PACTIVA_ATTESTATION_SECRET=pactiva_prod_attestation_key_change
+    volumes:
+      - pactiva_data:/app/data
+    networks:
+      - pactiva_net
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: pactiva_postgres_pgvector
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=pactiva
+      - POSTGRES_USER=pactiva_admin
+      - POSTGRES_PASSWORD=pactiva_secure_password_2026
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./pactiva_core/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+    networks:
+      - pactiva_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pactiva_admin -d pactiva"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pactiva_data:
+  postgres_data:
+
+networks:
+  pactiva_net:
+    driver: bridge
