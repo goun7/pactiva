@@ -26,9 +26,8 @@ yetkinlik-kanıtı → Proof-of-Audit → hak-ediş-skoru
 | §6-head | Proof-of-Audit-kökü; `evidence_link`-ile-bağlı |
 | Kanıt-adı | `pactiva`-kendi-adında ( AT-107/134-dersi) |
 | §6-whitelist | RFC-010 §6.1-13-zincir-listesinde ( tools/settlement_bind_verify.py) |
-| Schelling-tahkimi | RFC-011-yoluyla-pacta-escrow'a-bağlanır ( bu-protokol-
-  RFC-011'in-arbitration-protokol-listesinde-henüz-AYRICA-listelenmedi —
-  SONRA-adımı: `pacta/v1`-listesine-eklenmesi; §4-WHAT-NEXT) |
+| Tahkim-protokolü | `pactiva/v1` RFC-011-SUPPORTED_PROTOCOLS'te
+  ( tools/dispute_pointer_verify.py:27 — AT-187-doğrulaması) |
 
 ## Çalıştırma
 
