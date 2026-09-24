@@ -25,9 +25,10 @@ yetkinlik-kanıtı → Proof-of-Audit → hak-ediş-skoru
 |---|---|
 | §6-head | Proof-of-Audit-kökü; `evidence_link`-ile-bağlı |
 | Kanıt-adı | `pactiva`-kendi-adında ( AT-107/134-dersi) |
-| Tahkim | 7-üye-Schelling-quorum + quadratic-slashing ( §5.3) |
-| Tahkim-protokolü | `pactiva/v1` RFC-011-SUPPORTED_PROTOCOLS'te |
-| Teminat | MIN_BOND_PCT = 0.20 ( Pacta-§5.3-dış-değeri) |
+| §6-whitelist | RFC-010 §6.1-13-zincir-listesinde ( tools/settlement_bind_verify.py) |
+| Schelling-tahkimi | RFC-011-yoluyla-pacta-escrow'a-bağlanır ( bu-protokol-
+  RFC-011'in-arbitration-protokol-listesinde-henüz-AYRICA-listelenmedi —
+  SONRA-adımı: `pacta/v1`-listesine-eklenmesi; §4-WHAT-NEXT) |
 
 ## Çalıştırma
 
