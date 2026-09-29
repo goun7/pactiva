@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Test & coverage artifacts
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Environments
+.venv/
+venv/
+env/
+
+# Pactiva runtime artifacts (never commit a live database)
+*.db
+*.sqlite3
+pactiva.db
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store/

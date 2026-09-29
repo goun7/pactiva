@@ -1,5 +1,12 @@
 # Pactiva — Dağıtık İstihdam, Bilişsel Yetkinlik & Emanet Hak-Ediş Altyapısı
 
+> ⚠️ **DURUM ( 2026-09-29): RAFA KALDIRILDI — karar (C).**
+> Çekirdek güven-iddiaları 2025–2026 akademik literatürü ile çelişmektedir. Detaylı dürüst
+> değerlendirme ve gerekçe: [`docs/arastirma/degerlendirme-A-B-C.md`](docs/arastirma/degerlendirme-A-B-C.md).
+> Akademik doğrulama: [`docs/arastirma/akademik-arastirma-2026.md`](docs/arastirma/akademik-arastirma-2026.md).
+> **Bu repo referans/arşiv amaçlıdır; aktif geliştirme yapılmamaktadır.** Kod ve testler
+> hala çalışır durumdadır ( 104 test yeşil) ama **üretim-dağıtımı-yapılmamalıdır**.
+
 > **Ana-belge:** [`Fikir.md`](Fikir.md) — master-teknik-şartname
 > ( Proje-22 + Proje-37'nin-tek-kurumsal-mimaride-birleşimi).
 > **Bu-README-hızlı-başlangıç-içindir; ayrıntılar-ana-belgede.**
@@ -38,7 +45,16 @@ python3 -m pytest tests/ -q
 
 ## Sınırlar ( dürüst)
 
+- ⚠️ **PROJE RAFA KALDIRILDI** — aşağıdaki iddiaların **akademik olarak geçerliliği yoktur**:
+  - **Karesel oylama** ( `sqrt(stake)`): Sybil cüzdan-bölme saldırısıyla kırılır
+    ( arXiv:2605.18990, imkânsızlık teoremi; gerçek DAO'larda 1.172×–4.039× amplifikasyon).
+  - **Slashing**: tek başına ekonomik-güvenlik garantisi değildir
+    ( arXiv:2609.30509, risk-free equivocation Nash dengesi).
+  - **Meslektaş-itibarı**: iki sahte kimliğin birbirini-onaylamasıyla-oyunlanır
+    ( arXiv:2511.03434, reputation-gaming).
+  - **"Schelling-tahkimi"**: bu-termin için **doğrulanabilir akademik bir referans
+    bulunamamıştır**.
 - ** Emanet-akıllı-sözleşmeler-gerçek-zincirde-DEĞİL** — simülasyon-
-  sözleşmeleri ( docs/ESLESTIRME_CORE.md); üretim-dağıtımı-öncesi
+  sözleşmeleri ( docs/ESLESTIRME_CORE.md); üretim-dağıtımı-öncesi.
 - ** Hak-ediş-skoru-iç-olarak-hesaplanır**; dış-piyasa-doğrulaması-YOK
   ( Proof-of-Audit-mechanizması-üzerinden-güvenilir)
