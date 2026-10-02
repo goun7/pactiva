@@ -58,3 +58,63 @@ python3 -m pytest tests/ -q
   sözleşmeleri ( docs/ESLESTIRME_CORE.md); üretim-dağıtımı-öncesi.
 - ** Hak-ediş-skoru-iç-olarak-hesaplanır**; dış-piyasa-doğrulaması-YOK
   ( Proof-of-Audit-mechanizması-üzerinden-güvenilir)
+
+## Akademik Kaynaklar ( 2024-2026)
+
+Bu-çalışma aşağıdaki araştırmaya dayanır ( her referans canlı
+doğrulanmıştır):
+
+- **[1] Dinamik-katılım-hissesi** —
+  *Algorithmic Monetary Policies for Blockchain Participation Games* —
+  Ferraioli et al., arXiv 2025.
+  Ajanların **türü ( yetkinlik) + hissesi** ile karakterize edildiği,
+  her turda **katılım veya çekilme** seçtiği tekrarlı-oyun modeli;
+  politika yüksek-tür ajanları görev-yürütümü için seçerken ödülleri
+  merkeziyetsizliği-sürdürmek için dağıtır. Doğrudan Pactiva'nın
+  " yetkinlik + hisse → katılım → ödül" akışına karşılık gelir.
+  [arXiv:2512.16514](https://arxiv.org/abs/2512.16514)
+- **[2] Beceri-tabanlı-ödül-dağıtımı** —
+  *SkillShapley: Boundary-Adaptive Shapley Valuation for Skill Step
+  Attribution in LLM Agents* — Liu et al., arXiv 2026.
+  Bir becerinin **her adımının genel-performansa katkısını** Shapley
+  değeriyle nicelleştirir — " hangi adım ne kadar hak-etti?" sorusuna
+  oyun-teorik cevap. Pactiva'nın beceri-tabanlı hak-ediş-skoru için
+  dağıtım-adilliği yöntemidir.
+  [arXiv:2608.13173](https://arxiv.org/abs/2608.13173)
+- **[3] Bilişsel-yetkinlik-değerlendirmesi** —
+  *Using profiles of cognitive capability to assess AI suitability for
+  workplace tasks* — Prunty et al., arXiv 2026.
+  Ajan ve görevleri **ortak bilişsel-yetkinlik profilleriyle** eşleştirir;
+  toplu-benchmark-skorları yerine görev-bazlı yetkinlik-çıkarımı yapar.
+  Pactiva'nın " bilişsel-yetkinlik-kanıtı" için ölçüm-yöntemidir.
+  [arXiv:2608.25623](https://arxiv.org/abs/2608.25623)
+- **[4] Hak-edişe-göre-paylaşım** —
+  *Pool Formation in Oceanic Games: Shapley Value and Proportional
+  Sharing* — Kiayias et al., arXiv 2025.
+  Proof-of-Stake havuzları içinde üyeler arasında **katkıya-göre ödül
+  bölme** mekanizmalarını inceler. Pactiva'nın emanet-hak-ediş
+  dağıtımının oyun-teorik temelidir.
+  [arXiv:2505.04422](https://arxiv.org/abs/2505.04422)
+- **[5] Katkı-tabanlı-teşvik** —
+  *Blockchain-based Framework for Scalable and Incentivized Federated
+  Learning* — Wu et al., arXiv 2025.
+  Zincir-üstü hizalama-tabanlı ödüller + zincir-dışı **adillik-denetimleri**
+  + tutarlılık-çarpanları ile katkıyı ödüllendirir. Pactiva'nın
+  Proof-of-Audit + hak-ediş-skoru düzeni için referans-mimari.
+  [arXiv:2502.14170](https://arxiv.org/abs/2502.14170)
+- **[6] İtibar-güven-modeli** —
+  *A Sustainable and Reward Incentivized High-Performance Cluster
+  Computing for Artificial Intelligence: A Novel Bayesian-Time-Decay
+  Trust Mechanism in Blockchain* — Yaslioglu, arXiv 2025.
+  **Bayesci-zaman-sönümlü güven** mekanizması ile ödül-hesabını
+  zamanla-değerlendirir. Pactiva'nın meslektaş-itibarı ağı için
+  sönümlü-güven modelidir.
+  [arXiv:2511.21844](https://arxiv.org/abs/2511.21844)
+- **[7] Katkı-kredi-atfı** —
+  *MARS-RA: Rank Aggregation for Credit Assignment via Multimodal
+  Comparisons in Embodied Multi-Agent Cooperation* — Wang et al., arXiv 2026.
+  Kredi-atfını **mutlak değil göreceli** ( ikili-karşılaştırma + sıra-
+  agregasyon) tahmin olarak yeniden-formüle eder; gecikmiş-geri-bildirim
+  ve değişen-ajan-sayısı altında sağlamdır. Pactiva'nın kanıt-tabanlı
+  hak-ediş-atfı için robustluk kaynağıdır.
+  [arXiv:2607.27967](https://arxiv.org/abs/2607.27967)
