@@ -5,7 +5,7 @@
 > değerlendirme ve gerekçe: [`docs/arastirma/degerlendirme-A-B-C.md`](docs/arastirma/degerlendirme-A-B-C.md).
 > Akademik doğrulama: [`docs/arastirma/akademik-arastirma-2026.md`](docs/arastirma/akademik-arastirma-2026.md).
 > **Bu repo referans/arşiv amaçlıdır; aktif geliştirme yapılmamaktadır.** Kod ve testler
-> hala çalışır durumdadır ( 104 test yeşil) ama **üretim-dağıtımı-yapılmamalıdır**.
+> hala çalışır durumdadır ( 109 test yeşil) ama **üretim-dağıtımı-yapılmamalıdır**.
 
 > **Ana-belge:** [`Fikir.md`](Fikir.md) — master-teknik-şartname
 > ( Proje-22 + Proje-37'nin-tek-kurumsal-mimaride-birleşimi).
@@ -35,6 +35,33 @@ yetkinlik-kanıtı → Proof-of-Audit → hak-ediş-skoru
 | §6-whitelist | RFC-010 §6.1-13-zincir-listesinde ( tools/settlement_bind_verify.py) |
 | Tahkim-protokolü | `pactiva/v1` RFC-011-SUPPORTED_PROTOCOLS'te
   ( tools/dispute_pointer_verify.py:27 — AT-187-doğrulaması) |
+
+## Pacta escrow bağlantısı ( mesh)
+
+`fon yönetmez-AMA-hak-ediş-yönetir` ilkesinin kodda gerçekleşimi:
+[`pactiva_core/pacta_escrow.py`](pactiva_core/pacta_escrow.py). Bir serbest-
+bırakılmış hak-ediş kaydını ( emanet-kasası → `release_escrow_payout` →
+Proof-of-Audit-mührü) GERÇEK Pacta escrow modeline bağlar ve ortak sonucu
+Tamga D5 hash-chain'ine sabitler ( README'nin §6-foreign_chain_proof çizgisi):
+
+```
+hak-ediş ( disbursed + audit-block-hash)
+  → earning_hash      ( sha256/jcs — bağımsız yeniden-üretilebilir)
+  → EscrowJob SETTLED ( Pacta) ↔ tutar/parti/sonuç uzlaşı
+  → D5 charge + imzalı claim  ( RFC-010 additive — şema değişikliği YOK)
+```
+
+Üretilen charge RFC-010'ın beş kontrolünü geçen bir **üstkümesidir** —
+Pacta'nın kendi gate'i onu kabul eder; bunun üzerine pactiva-üçü ( 6/7/8)
+eklenir: `pactiva-proof` ( disbursed + 64-hex audit-mührü), `earning-recomputes`
+( hash baştan hesaplanır, Pactiva'nın sözüne güvenilmez), `escrow-reconcile`
+( ödene değer ↔ escrow tutarı + taraflar). İlk RED'de tümü RED ( fail-closed)
+ve hiçbir şey zincire yazılmaz. Değer-transferi YOK — bağ taahhüdü sabitler.
+
+> ⚠️ **Para-birimi ( dürüst):** Pactiva-hak-edişi **TRY**, Pacta-escrow'u
+> **USDC**. TRY→USDC-kuru dış-piyasa-verisidir-ve-machine-checkable-DEĞİLDİR;
+> bu-yüzden-kuru-çağıran-sağlar-ve-charge'a-yazar. Kur-verilmezse-köprü-RED-
+> verir — belirsiz-değeri-escrow'a-sabitlemek-yanlış-kanıt-üretirdi.
 
 ## Çalıştırma
 
