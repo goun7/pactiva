@@ -38,6 +38,12 @@ def cmd_lock_budget(args):
     repo = PactivaRepository()
     rate = Decimal(str(args.rate))
     hours = Decimal(str(args.hours))
+    if rate <= 0:
+        print(f"❌ GEÇERSİZ GİRDİ: --rate pozitif olmalı (verilen: {args.rate})", file=sys.stderr)
+        return 2
+    if hours <= 0:
+        print(f"❌ GEÇERSİZ GİRDİ: --hours pozitif olmalı (verilen: {args.hours})", file=sys.stderr)
+        return 2
 
     locked = calculate_escrow_budget_lock(rate, hours, Decimal("0.20"))
     fee = (locked * Decimal("0.03")).quantize(TWO_PLACES)
@@ -172,6 +178,10 @@ def cmd_release_escrow(args):
     from pactiva_core.audit_ledger import record_audit_event
     payout = Decimal(str(args.payout))
     tax = Decimal(str(args.tax))
+    escrow = repo.get_escrow_by_job_id(args.job_id)
+    if escrow is None:
+        print(f"❌ GEÇERSİZ GİRDİ: {args.job_id} için emanet kasası hesabı bulunamadı.", file=sys.stderr)
+        return 2
     escrow = repo.release_escrow_payout(args.job_id, payout, tax)
     audit = record_audit_event("ESCROW_PAYOUT_RELEASED", {
         "job_id": args.job_id,
@@ -244,8 +254,9 @@ def main():
     p_erp.set_defaults(func=cmd_erp_export)
 
     args = parser.parse_args()
-    args.func(args)
+    rc = args.func(args)
+    return rc or 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
