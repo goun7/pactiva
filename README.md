@@ -5,7 +5,7 @@
 > değerlendirme ve gerekçe: [`docs/arastirma/degerlendirme-A-B-C.md`](docs/arastirma/degerlendirme-A-B-C.md).
 > Akademik doğrulama: [`docs/arastirma/akademik-arastirma-2026.md`](docs/arastirma/akademik-arastirma-2026.md).
 > **Bu repo referans/arşiv amaçlıdır; aktif geliştirme yapılmamaktadır.** Kod ve testler
-> hala çalışır durumdadır ( 197 test yeşil, 0 failed rc=0 — LEED-ölçümü 2026-10-14) ama **üretim-dağıtımı-yapılmamalıdır**.
+> hala çalışır durumdadır ( 226 test yeşil, 0 failed rc=0 — LEED-ölçümü 2026-10-18) ama **üretim-dağıtımı-yapılmamalıdır**.
 
 > **Ana-belge:** [`Fikir.md`](Fikir.md) — master-teknik-şartname
 > ( Proje-22 + Proje-37'nin-tek-kurumsal-mimaride-birleşimi).
