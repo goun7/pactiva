@@ -32,9 +32,10 @@ yetkinlik-kanıtı → Proof-of-Audit → hak-ediş-skoru
 |---|---|
 | §6-head | Proof-of-Audit-kökü; `evidence_link`-ile-bağlı |
 | Kanıt-adı | `pactiva`-kendi-adında ( AT-107/134-dersi) |
-| §6-whitelist | RFC-010 §6.1-13-zincir-listesinde ( tools/settlement_bind_verify.py) |
+| §6-whitelist | RFC-010 §6.1-13-zincir-listesinde ( refere edilen
+  `tools/settlement_bind_verify.py` bu-rafta-DEĞIL — mesh-kardeş-tarafta) |
 | Tahkim-protokolü | `pactiva/v1` RFC-011-SUPPORTED_PROTOCOLS'te
-  ( tools/dispute_pointer_verify.py:27 — AT-187-doğrulaması) |
+  ( refere edilen `tools/dispute_pointer_verify.py` bu-rafta-DEĞIL) |
 
 ## Pacta escrow bağlantısı ( mesh)
 
