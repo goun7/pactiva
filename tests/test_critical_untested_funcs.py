@@ -15,6 +15,9 @@ from decimal import Decimal
 
 # pactiva_core.pacta_escrow importu pacta'yı sys.path'e ekler (mevcut testlerdeki gibi);
 # EscrowJob/EscrowStatus bu sayede çözülür.
+# G48-2026-10-22: CI'da kardes-Pacta-checkout-YOKSA-bu-dosyanin-tamami-skip
+# ( module-level-pacta-importu-collection-patliyordu).
+pytest.importorskip("pacta")
 import pactiva_core.pacta_escrow  # noqa: F401
 
 from pactiva_core.audit_ledger import compute_block_hash
