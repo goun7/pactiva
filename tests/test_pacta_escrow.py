@@ -15,6 +15,11 @@ from decimal import Decimal
 from pathlib import Path
 
 import pytest
+
+# G48-2026-10-22: eth_keys-CI'da-dev-dependency-degildi ( requirements'ta
+# YOKTU) -> collection-patliyordu. Kardes-Pacta-ile-ayni-kalip:
+# bulunamadiysa-dosyanin-tamami-skip ( yarim-kalmaz).
+pytest.importorskip("eth_keys")
 from eth_keys import keys as eth_keys
 
 # Önce-pactiva_core.pacta_escrow-import-edilmeli — o-GERÇEK-Pacta-checkout'unu
