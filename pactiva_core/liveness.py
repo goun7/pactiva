@@ -5,7 +5,7 @@ Otomatik tıklama makrolarını, bot emülatörlerini ve sahte refleks hilelerin
 
 import hashlib
 import math
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 
 
 def calculate_shannon_entropy(values: List[float], bins: int = 10) -> float:

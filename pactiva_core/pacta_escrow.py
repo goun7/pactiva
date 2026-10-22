@@ -94,9 +94,20 @@ def _ensure_pacta_on_path() -> Optional[Path]:
 
 PACTA_ROOT = _ensure_pacta_on_path()
 
-from pacta.integrations.tamga_d5 import D5Ledger, SettlementBinder   # noqa: E402
-from pacta.integrations.tamga_jcs import jcs                          # noqa: E402
-from pacta.models import EscrowJob, EscrowStatus                      # noqa: E402
+# G48-2026-10-22: CI'da kardes-Pacta-checkout-YOKKEN-modul-importu-patliyordu
+# ( ModuleNotFoundError: No module named 'pacta') -> 3-test-dosyasi-collection-
+# hatasi-veriyordu. Cozum: import-fail-soft ( bulunamadiysa-HakEdisRecord-un
+# saf-Python-kisimlari-hala-kullanilabilir; Pacta-bridge-uzerindeki-reconcile-
+# dallari-yoksa-KIRMIZI-degil, fail-loud-olarak-devreye-girer).
+try:
+    from pacta.integrations.tamga_d5 import D5Ledger, SettlementBinder   # noqa: E402
+    from pacta.integrations.tamga_jcs import jcs                          # noqa: E402
+    from pacta.models import EscrowJob, EscrowStatus                      # noqa: E402
+    _PACTA_MODUL_MEVCUT = True
+except ImportError:
+    D5Ledger = SettlementBinder = jcs = None                     # type: ignore[assignment]
+    EscrowJob = EscrowStatus = None                               # type: ignore[assignment]
+    _PACTA_MODUL_MEVCUT = False
 
 
 PACTIVA_TAG = "pactiva/v1"               # additive-etiket ( RFC-011 protokol-adı)
@@ -205,7 +216,16 @@ class HakEdisRecord:
 
     @property
     def earning_hash(self) -> str:
-        """``sha256( jcs( canonical))`` — bağımsız-yeniden-üretilebilir-hak-ediş-özeti."""
+        """``sha256( jcs( canonical))`` — bağımsız-yeniden-üretilebilir-hak-ediş-özeti.
+
+        G48-2026-10-22: jcs-Pacta-kardesinden-gelir ( CI'da-YOKSA-fail-loud:
+        hash-uretememek-KANIT-uretememek anlamina-gelir; sessiz-alternatif
+        SHA256-konsensusu-olustururdu-ki-bu-kanit-butunlugunu-bozar).
+        """
+        if jcs is None:
+            raise RuntimeError(
+                "earning_hash-hesaplanamiyor: pacta-jcs-modulu-bulunamadi "
+                "( kardes-Pacta-checkout-YOK)")
         return hashlib.sha256(jcs(self.canonical())).hexdigest()
 
     def net_payout_amount(self) -> Decimal:
