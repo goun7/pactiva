@@ -2,3 +2,8 @@ fastapi>=0.115.0
 uvicorn[standard]>=0.34.0
 pydantic>=2.10.0
 pytest>=8.0.0
+# G48-2026-10-22: starlette>=1.6 TestClient-icin-httpx2-ZORUNLU-kildi
+# ( CI-starlette-1.9.0-kuruluyor). Oncesi: "RuntimeError: The
+# starlette.testclient module requires the httpx2 package" -> 12-test-
+# dosyasi-collection-patliyordu.
+httpx2>=0.40
