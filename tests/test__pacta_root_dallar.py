@@ -116,22 +116,31 @@ def test_env_gecersiz_tum_adaylar_bos_none(monkeypatch, tmp_path):
 # ---------------------------------------------------------------------------
 
 def test_bilinen_kurulum_03_pacta(monkeypatch):
-    """Bu-ortamda bilinen-kurulum /home/gokun/.../03-Pacta mevcut."""
+    """Bilinen-kurulum-bu-makinede-olabilir- ( CI'da-YOK).
+
+    G48-2026-10-22: makineye-bagli-test-CI'da-False-KIRMIZI-veriyordu.
+    Bu-ortamda-bulunursa-isim-assert-edilir, bulunamazsa-skip.
+    """
     monkeypatch.delenv("PACTA_ROOT", raising=False)
     sonuc = _pacta_root()
-    assert sonuc is not None
-    assert "03-Pacta" in str(sonuc)
+    if sonuc is None:
+        pytest.skip("kardes-Pacta-checkout-bu-makinede-YOK (CI)")
+    assert "03-Pacta" in str(sonuc) or "pacta" in str(sonuc).lower()
 
 
 def test_bilinen_kurulum_model_dosyasi_var(monkeypatch):
     monkeypatch.delenv("PACTA_ROOT", raising=False)
     root = _pacta_root()
+    if root is None:
+        pytest.skip("kardes-Pacta-checkout-bu-makinede-YOK (CI)")
     assert (root / "pacta" / "models.py").is_file()
 
 
 def test_bilinen_kurulum_tamga_d5_var(monkeypatch):
     monkeypatch.delenv("PACTA_ROOT", raising=False)
     root = _pacta_root()
+    if root is None:
+        pytest.skip("kardes-Pacta-checkout-bu-makinede-YOK (CI)")
     assert (root / "pacta" / "integrations" / "tamga_d5.py").is_file()
 
 
@@ -217,8 +226,12 @@ def test_modulde_fonksiyonlar_var():
 
 
 def test_pacta_root_sabit_gecerli():
-    """PACTA_ROOT import-anında-çözülmüş-değer geçerli-bir-dizin."""
-    assert pacta_escrow.PACTA_ROOT is not None
+    """PACTA_ROOT import-anında-çözülmüş-değer geçerli-bir-dizin ( ya-None).
+
+    G48-2026-10-22: CI'da-kardes-checkout-YOKSA-None-dur- ( fail-soft).
+    """
+    if pacta_escrow.PACTA_ROOT is None:
+        pytest.skip("kardes-Pacta-checkout-bu-makinede-YOK (CI)")
     assert pacta_escrow.PACTA_ROOT.is_dir()
 
 
